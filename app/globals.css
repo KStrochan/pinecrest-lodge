@@ -46,9 +46,11 @@ h3 {
   line-height: 1.15;
 }
 
-a {
-  color: var(--link);
-  text-underline-offset: 0.2em;
+@layer base {
+  a {
+    color: var(--link);
+    text-underline-offset: 0.2em;
+  }
 }
 
 :focus-visible {
@@ -144,4 +146,87 @@ a {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Pinecrest Lodge: one slow reveal on arrival, quiet everywhere else. */
+body {
+  font-weight: 300;
+  letter-spacing: 0.01em;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 500;
+}
+
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-photo {
+  animation: settle 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.hero-copy {
+  animation: rise 1.4s 0.6s ease-out both;
+}
+
+.btn-sand {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: var(--fg);
+  color: var(--bg);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border-radius: var(--radius);
+}
+
+.btn-sand:hover {
+  background: #f3ead8;
+}
+
+.btn-line {
+  display: inline-block;
+  padding: 0.7rem 1.45rem;
+  border: 1px solid var(--fg);
+  color: var(--fg);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border-radius: var(--radius);
+}
+
+.photo-credits {
+  line-height: 1.7;
+}
+
+.photo-credits a {
+  color: inherit;
+}
+
+dialog::backdrop {
+  background: rgb(10 14 11 / 0.92);
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
 }

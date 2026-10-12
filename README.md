@@ -6,21 +6,13 @@ A small mountain lodge with cabins, a sauna and trails starting at the door.
 
 ## Status
 
-In progress. The groundwork is done: brand colors and fonts, the contact form with Telegram delivery, metadata, tests and a Lighthouse check. The pages below are next.
+Live at https://pinecrest-lodge.vercel.app
 
-Pages:
+What is built:
 
-- [ ] Home
-- [ ] Cabins (4 types)
-- [ ] Things to do
-- [ ] Gallery
-- [ ] Booking
-- [ ] Contact
-
-Features:
-
-- [ ] Availability calendar backed by a typed set of dates, with a booking request
-- [ ] Gallery with a lightbox
+- Home: full-screen hero, the four cabins with prices, things to do
+- Gallery (`/gallery`) with a keyboard-friendly lightbox
+- Booking (`/booking`): availability calendar per cabin, price for the stay and a booking request
 
 ## Design
 
@@ -74,11 +66,11 @@ Enquiries go to a Telegram chat. Copy `.env.example` to `.env.local` and fill in
 
 ## Deploying
 
-Import the repository in Vercel and add the two Telegram variables if the form should deliver leads. Update `url` in `content/site.ts` once the site has its final domain.
+Import the repository in Vercel and add the two Telegram variables if the form should deliver leads. If the domain changes, update `url` in `content/site.ts` and `tests/metadata.test.ts`.
 
 ## Credits
 
-Fonts are licensed under the SIL Open Font License; the license texts are in `app/fonts`. Photos will come from Unsplash and are credited in the site footer.
+Fonts are licensed under the SIL Open Font License; the license texts are in `app/fonts`. Photos are hotlinked from Unsplash and credited in the site footer.
 
 ## License
 
