@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { Altimeter } from "@/components/anim/Altimeter";
+import { PlayWhenVisible } from "@/components/anim/PlayWhenVisible";
+import { Reveal } from "@/components/anim/Reveal";
+import { ScrollProgress } from "@/components/anim/ScrollProgress";
+import { Fireflies, Fog, Snow } from "@/components/anim/Weather";
 import { activities, photos } from "@/content/lodge";
 import { site } from "@/content/site";
 import { cabins, formatUsd } from "@/lib/availability";
@@ -23,6 +28,11 @@ export default function HomePage() {
           className="hero-photo -z-20 bg-[var(--surface)] object-cover"
         />
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-bg via-bg/40 to-bg/30" />
+        <PlayWhenVisible delay={1500} className="pointer-events-none absolute inset-0">
+          <Snow />
+          <Fog />
+        </PlayWhenVisible>
+        <Altimeter className="absolute right-4 top-28 hidden sm:right-8 md:grid" />
         <div className="hero-copy mx-auto grid w-full max-w-7xl gap-6 px-4 pb-20 sm:px-8 sm:pb-28">
           <h1 className="max-w-4xl font-display text-5xl leading-[1.05] sm:text-7xl lg:text-8xl">
             Four cabins, one sauna, and nothing on the schedule.
@@ -47,14 +57,16 @@ export default function HomePage() {
           Breakfast is bread from the lodge oven. Dinner is whatever you cook on the stove. Wi-Fi works in the main
           house, and most guests stop asking for it by the second day.
         </p>
-        <Image
-          src={unsplash(photos.mist, 1400)}
-          alt="Dark pine forest in thick fog"
-          width={1400}
-          height={933}
-          sizes="(min-width: 768px) 640px, 100vw"
-          className="aspect-[3/2] h-auto w-full bg-[var(--surface)] object-cover"
-        />
+        <ScrollProgress className="overflow-hidden" start={1} end={0}>
+          <Image
+            src={unsplash(photos.mist, 1400)}
+            alt="Dark pine forest in thick fog"
+            width={1400}
+            height={933}
+            sizes="(min-width: 768px) 640px, 100vw"
+            className="parallax-img aspect-[3/2] h-auto w-full bg-[var(--surface)] object-cover"
+          />
+        </ScrollProgress>
       </section>
 
       <section id="stay" className="scroll-mt-8 bg-[var(--surface)]">
@@ -66,14 +78,16 @@ export default function HomePage() {
           <ul className="mt-14 grid gap-x-8 gap-y-16 md:grid-cols-2">
             {cabins.map((cabin, index) => (
               <li key={cabin.id} className={`grid gap-5 ${index % 2 === 1 ? "md:mt-20" : ""}`}>
+                <Reveal variant="curtain" delay={(index % 2) * 0.15} className="overflow-hidden">
                 <Image
                   src={unsplash(cabin.photo, 1200)}
                   alt={cabin.alt}
                   width={1200}
                   height={900}
                   sizes="(min-width: 768px) 600px, 100vw"
-                  className="aspect-[4/3] h-auto w-full bg-bg object-cover"
+                  className="aspect-[4/3] h-auto w-full bg-bg object-cover transition-transform duration-[1.2s] ease-out hover:scale-105"
                 />
+                </Reveal>
                 <div className="flex flex-wrap items-baseline justify-between gap-3">
                   <h3 className="font-display text-3xl">{cabin.name}</h3>
                   <p className="text-muted">
@@ -90,8 +104,8 @@ export default function HomePage() {
       <section id="do" className="mx-auto max-w-7xl scroll-mt-8 px-4 py-24 sm:px-8">
         <h2 className="font-display text-5xl">Things to do</h2>
         <ul className="mt-12 grid gap-10 md:grid-cols-3">
-          {activities.map((a) => (
-            <li key={a.title} className="grid content-start gap-4">
+          {activities.map((a, index) => (
+            <Reveal as="li" delay={index * 0.15} key={a.title} className="grid content-start gap-4">
               <Image
                 src={unsplash(a.photo, 900)}
                 alt={a.alt}
@@ -102,7 +116,7 @@ export default function HomePage() {
               />
               <h3 className="font-display text-2xl">{a.title}</h3>
               <p className="text-muted">{a.text}</p>
-            </li>
+            </Reveal>
           ))}
         </ul>
       </section>
@@ -110,6 +124,9 @@ export default function HomePage() {
       <section className="relative isolate overflow-hidden">
         <Image src={unsplash(photos.valley, 2400)} alt="" fill sizes="100vw" className="-z-20 bg-[var(--surface)] object-cover" />
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-bg/60" />
+        <PlayWhenVisible className="pointer-events-none absolute inset-0">
+          <Fireflies />
+        </PlayWhenVisible>
         <div className="mx-auto grid max-w-7xl justify-items-start gap-6 px-4 py-32 sm:px-8">
           <h2 className="max-w-2xl font-display text-5xl leading-tight">Weekends go first. Weekdays are quieter and 20% cheaper.</h2>
           <div className="flex flex-wrap gap-4">
